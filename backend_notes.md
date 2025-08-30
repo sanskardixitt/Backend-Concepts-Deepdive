@@ -96,3 +96,31 @@ Integrity: The payload has not been tampered with. If a user tried to change the
 
 
 
+Interview Tips -------------------
+I understand it can be tough to recall a specific example on the spot. The goal of this question isn't to trick you, but to understand your personal problem-solving process. Since this is a simulation to help you prepare, I'll give you a template for what a good answer looks like, using the middleware example.
+
+An interviewer is typically looking for you to structure your story using the STAR method:
+
+S - Situation: Briefly set the scene.
+
+T - Task: What was your specific goal?
+
+A - Action: What steps did you take?
+
+R - Result: What was the outcome and what did you learn?
+
+Example of a Good Answer
+Here is a sample story a candidate might tell:
+
+(S) Situation: "In my last project, we needed to protect certain admin-only API endpoints, like /users/:id/delete. Junior developers on the team were accidentally calling these endpoints."
+
+(T) Task: "My task was to create a new authorization middleware called isAdmin. This middleware had to intercept requests to protected routes and check if the user had an 'admin' role. If they weren't an admin, it had to stop the request and send back a 403 Forbidden error."
+
+(A) Action: "My first attempt didn't work. The middleware was blocking everyone, including admins. I started debugging by adding console.log statements right at the beginning of the middleware to inspect the req.user object that our JWT authentication strategy provided. I saw that the role was stored in req.user.permissions.role and not req.user.role as I had assumed. I also discussed this with my senior, who confirmed that the new authentication service used a nested permissions object. I corrected my code to check the proper nested path."
+
+(R) Result: "After fixing the path, the middleware worked perfectly. It blocked non-admin users and allowed admins to proceed. The key things I learned were to never assume the structure of an object and the importance of logging during debugging to verify the actual data you're working with. It also reinforced the need to clearly understand the data contracts between different microservices."
+
+================
+
+
+
